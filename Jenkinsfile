@@ -60,15 +60,16 @@ pipeline {
               }
               steps {
                   script {
-                    def response = httpRequest (
-                         url: "http://$KUBE_MASTER_IP:8081/",
-                         timeout: 30
-                    )
-                    if (reponse.status != 200) {
-                        error("Smoke test against canary has failed.")  
-                    }
-                  }
-              }
+                      sleep (time: 5)
+                      def response = httpRequest (
+                           url: "http://$KUBE_MASTER_IP:8081/",
+                           timeout: 30
+                      )
+                      if (reponse.status != 200) {
+                          error("Smoke test against canary has failed.")  
+                      }
+                 }
+             }
         }
         
         stage('DeployToProduction') {
